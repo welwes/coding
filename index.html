@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автосалон Tesla</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .card {
+            background: white;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .card h2 {
+            color: #333;
+        }
+        .card p {
+            color: #666;
+        }
+        .card .price {
+            font-size: 24px;
+            color: #e60000;
+        }
+        .card button {
+            background: #e60000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .card button:hover {
+            background: #b30000;
+        }
+        .payment-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .success-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <h1>Автосалон Tesla</h1>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <img src="https://images.prismic.io/carwow/a0b54c70-b58c-482c-8d28-b72884380e42_2023+Tesla+Model+S+front+quarter+static.jpg" alt="Tesla Model S">
+        <h2>Tesla Model S</h2>
+        <p>Электрический седан с впечатляющей динамикой и дальностью хода.</p>
+        <p class="price">4,452,300 грн.</p>
+        <button onclick="buyNow('Tesla Model S', '4,452,300 грн.')">Замовити</button>
+    </div>
+
+    <div class="card">
+        <img src="https://i.infocar.ua/i/12/5590/1400x936.jpg" alt="Tesla Model 3">
+        <h2>Tesla Model 3</h2>
+        <p>Доступный электромобиль с отличными характеристиками.</p>
+        <p class="price">1,514,700 грн.</p>
+        <button onclick="buyNow('Tesla Model 3', '1,514,700 грн.')">Замовити</button>
+    </div>
+
+    <div class="card">
+        <img src="https://teslapark.com.ua/wp-content/uploads/2023/06/IMG_8782-scaled.jpg" alt="Tesla Model X">
+        <h2>Tesla Model X</h2>
+        <p>Электрический кроссовер с уникальными дверями типа «крыло чайки».</p>
+        <p class="price">4,938,075 грн.</p>
+        <button onclick="buyNow('Tesla Model X', '4,938,075 грн.')">Замовити</button>
+    </div>
+
+    <div class="card">
+        <img src="https://www.topgear.com/sites/default/files/2022/03/TopGear%20-%20Tesla%20Model%20Y%20-%20003.jpg" alt="Tesla Model Y">
+        <h2>Tesla Model Y</h2>
+        <p>Компактный кроссовер с большим запасом хода.</p>
+        <p class="price">1,648,575 грн.</p>
+        <button onclick="buyNow('Tesla Model Y', '1,648,575 грн.')">Замовити</button>
+    </div>
+
+    <div class="card">
+        <img src="https://autopark.ua/photos/8/Statti/stattya0801-1.jpg" alt="Tesla Cybertruck">
+        <h2>Tesla Cybertruck</h2>
+        <p>Электрический пикап с футуристическим дизайном и высокой производительностью.</p>
+        <p class="price">3,666,359 грн.</p>
+        <button onclick="buyNow('Tesla Cybertruck', '3,666,359 грн.')">Замовити</button>
+    </div>
+
+    <div class="payment-container" id="payment-container">
+        <h2>Оплата</h2>
+        <p id="selected-car"></p>
+        <form id="payment-form" onsubmit="processPayment(event)">
+            <label for="card-number">Номер картки:</label><br>
+            <input type="text" id="card-number" name="card-number" required><br><br>
+            <label for="card-name">Iмя на картi:</label><br>
+            <input type="text" id="card-name" name="card-name" required><br><br>
+            <label for="card-expiry">Час дiЇ:</label><br>
+            <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required><br><br>
+            <label for="card-cvc">CVC:</label><br>
+            <input type="text" id="card-cvc" name="card-cvc" required><br><br>
+            <button type="submit">Пiдтвердити</button>
+        </form>
+    </div>
+
+    <div class="success-container" id="success-container">
+        <h2>Ваше замовлення було сплачено, очiкуйте вашу машину!</h2>
+    </div>
+
+</div>
+
+<script>
+    function buyNow(car, price) {
+        document.getElementById('payment-container').style.display = 'block';
+        document.getElementById('selected-car').innerText = car + " - " + price;
+        window.scrollTo(0, document.getElementById('payment-container').offsetTop);
+    }
+
+    function processPayment(event) {
+        event.preventDefault();
+        document.getElementById('payment-container').style.display = 'none';
+        document.getElementById('success-container').style.display = 'block';
+        window.scrollTo(0, document.getElementById('success-container').offsetTop);
+    }
+</script>
+
+</body>
+</html>
